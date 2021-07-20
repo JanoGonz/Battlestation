@@ -1,0 +1,182 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+{% if current_user.is_authenticated %}{% set new_messages = current_user.new_messages() %}{% set new_alerts = current_user.new_alerts() %}{% if new_messages > 0 or new_alerts > 0 %}({{ new_messages + new_alerts}}) {% endif %}{% endif %}
+{% if title %}{{ title }} - BattleStation{% else %}BattleStation
+{% endif %}
+{% endblock %}
+
+{% block head %}
+<link rel="icon" href="{{ url_for('static',filename='icons/logo.png') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" data-auto-a11y="true"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
+{{ super() }}
+
+{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">{{ _('Toggle navigation') }}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('main.home') }}">Battlestation</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('auth.new_tournament') }}">{{ _('Create tournament') }}</a></li>
+            {% endif %}
+                <li><a href="{{ url_for('main.tournament_list') }}">{{ _('Tournament list') }}</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if current_user.is_anonymous %}
+                <li><a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a></li>
+                {% else %}
+                <li>
+                    <!-- tournament_alerts_popup -->
+                    <a href="#" data-trigger="focus" data-toggle="popover" data-placement="bottom"
+                        data-templatefile="{{ url_for('main.tournament_alerts_popup') }}">
+                        <i class="fa fa-bell"></i>
+                        {% set new_alerts = current_user.new_alerts() %}
+                        <span id="alert_count" class="badge" {% if new_alerts %} style="visibility: visible" ; {% else
+                            %} style="visibility: hidden" ; {% endif %}>{{ new_alerts }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('main.messages') }}">
+                        <i class="fa fa-inbox" aria-hidden="true"></i>
+                        {% set new_messages = current_user.new_messages() %}
+                        <span id="message_count" class="badge" {% if new_messages %} style="visibility: visible" ; {%
+                            else %} style="visibility: hidden" ; {% endif %}>{{ new_messages }}</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span
+                            class="fas fa-user"></span> {{ current_user.username }}</a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a class="dropdown-item"
+                                href="{{ url_for('auth.user', username=current_user.username) }}"><i
+                                    class="fas fa-user-circle"></i> {{ _('My profile') }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> {{ _('Settings') }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i
+                                    class="fas fa-sign-out-alt"></i> {{ _('Logout') }}</a>
+                        </li>
+                    </ul>
+
+                </li>
+                {% endif %}
+            </ul>
+            <!-- {% if g.search_form %}
+            <form class="navbar-form navbar-left" method="get" action="{{ url_for('main.search') }}">
+                <div class="form-group hidden-sm">
+                     {{ g.search_form.q(size=20, class='form-control',
+                    placeholder=g.search_form.q.label.text) }} 
+                </div>
+            </form>
+            {% endif %}-->
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block app_content %}
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{{ super() }}
+{{ moment.include_moment() }}
+{{ moment.lang(g.locale) }}
+{% if current_user.is_authenticated %}
+<script>
+    function set_message_count(n, title) {
+        $('#message_count').text(n);
+        $('#message_count').css('visibility', n ? 'visible' : 'hidden');
+    }
+    function set_alert_count(n, title) {
+
+        $('#alert_count').text(n);
+        $('#alert_count').css('visibility', n ? 'visible' : 'hidden');
+    }
+    function set_title(n, title) {
+        if (n > 0) {
+                document.title = "(" + n + ") {% if title %}{{ title }} - {% endif %}BattleStation"
+        } else {
+                document.title = "{% if title %}{{ title }} - {% endif %}BattleStation"
+        };
+    }
+    function loadContent(templateFile) {
+        return $('<div>').load(templateFile, function (html) {
+            parser = new DOMParser();
+            doc = parser.parseFromString(html, "text/html");
+            return doc.querySelector('h1').outerHTML + doc.querySelector('body').outerHTML;
+        }
+        );
+    }
+
+    $(function () {
+        var since = 0;
+        const original_title = document.title;
+        setInterval(function () {
+            $.ajax("{{ url_for('main.notifications') }}?since=" + since).done(
+                function (notifications) {
+                    n_notificaciones = 0;
+                    for (var i = 0; i < notifications.length; i++) {
+			if (notifications[i].name.includes('tournament_alert') || notifications[i].name.includes('unread_')){
+	                        if (notifications[i].name.includes('tournament_alert')){
+        	                    set_alert_count(notifications[i].data);
+                	        }
+                        	if (notifications[i].name.includes('unread_')){
+                        	    set_message_count(notifications[i].data);
+				}
+				n_notificaciones = notifications[i].data + n_notificaciones;
+				n_nofificaciones = {{ current_user.new_alerts() + current_user.new_messages() }}
+                	}
+		    }
+                    set_title(n_notificaciones, original_title);
+                    since = notifications[i].timestamp;
+                    
+                }
+            );
+        }, 10000);
+    });
+
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        content: function () {
+            return loadContent($(this).data('templatefile'))
+        }
+    });
+    $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block app_content %}
+
+
+        <h1 style="display: inline-block;">{{ _('Messages') }}</h1>
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item active">
+                <a class="nav-link" id="pills-received-tab" data-toggle="pill" href="#pills-received" role="tab"
+                    aria-controls="pills-received">{{ _('Received messages') }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-sent-tab" data-toggle="pill" href="#pills-sent" role="tab"
+                    aria-controls="pills-sent">{{ _('Sent messages') }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-org-msg-tab" data-toggle="pill" href="#pills-org-msg" role="tab"
+                    aria-controls="pills-org-msg">{{ _('Organization Messages') }}{% if org_alerts %} <i class="fa fa-exclamation-circle" aria-hidden="true"></i>{% endif %}</a>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade in active" id="pills-received" role="tabpanel" aria-labelledby="pills-received-tab">
+            {% if messages %}
+                {% for post in messages %}
+                {% include '_message_list.html' %}
+            {% endfor %}
+            <nav aria-label="...">
+                <ul class="pager">
+                    <li class="previous{% if not prev_url %} disabled{% endif %}">
+                        <a href="{{ prev_url or '#' }}">
+                            <span aria-hidden="true">&larr;</span> {{ _('Newer messages') }}
+                        </a>
+                    </li>
+                    <li class="next{% if not next_url %} disabled{% endif %}">
+                        <a href="{{ next_url or '#' }}">
+                            {{ _('Older messages') }} <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {% else %}
+            <i>{{ _('No messages yet') }}</i>
+            {% endif %}
+            </div>
+
+            <div class="tab-pane fade" id="pills-sent" role="tabpanel" aria-labelledby="pills-sent-tab">
+            {% if messages_sent %}
+                {% for post in messages_sent %}
+                {% include '_message_sent_list.html' %}
+            {% endfor %}
+            <nav aria-label="...">
+                <ul class="pager">
+                    <li class="previous{% if not sent_prev_url %} disabled{% endif %}">
+                        <a href="{{ sent_prev_url or '#' }}#pills-sent">
+                            <span aria-hidden="true">&larr;</span> {{ _('Newer messages') }}
+                        </a>
+                    </li>
+                    <li class="next{% if not sent_next_url %} disabled{% endif %}">
+                        <a href="{{ sent_next_url or '#' }}#pills-sent">
+                            {{ _('Older messages') }} <span aria-hidden="true">&rarr;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {% else %}
+            <i>{{ _('No messages sent') }}</i>
+            {% endif %}
+            </div>
+
+            <div class="tab-pane fade" id="pills-org-msg" role="tabpanel" aria-labelledby="pills-org-msg-tab">
+                {% for x, y in org_message_list %}
+                <div class="post">
+                    <img class="avatar-xs" src="{{ x.author_org_message.avatar(32) }}"><b style="font-size: 16px;"> <a href="{{ url_for('auth.user', username=x.author_org_message.username)}}"> {{ x.author_org_message.username }}</a></b>&emsp;{{ _('posted') }} <i>{{ moment(x.timestamp).fromNow() }}</i>
+                    <a href="{{ url_for('main.reply_message_org', message=x.id )}}" class="btn btn-danger left"><i class="fas fa-reply"></i></a>
+                    <hr>
+                    <div class="post-body">
+                    {{ x.message | safe }}
+                    <hr>
+
+                {% if y %}
+                {% for reply in y %}
+                <div class="post-reply">
+                    {% if reply.sent_by_org %}
+                        <img class="avatar-xs" src="{{ x.receiver.avatar(32) }}"><b style="font-size: 16px;"> <a href="{{ url_for('auth.organization', org=x.receiver.name) }}">{{ x.receiver.name }}</a></b>&emsp;{{ _('answered') }} <i>{{ moment(reply.timestamp).fromNow() }}</i><br>
+                    {% else %}
+                        <img class="avatar-xs" src="{{ reply.reply_author_org_message.avatar(32) }}"><b style="font-size: 16px;"> <a href="{{ url_for('auth.user', username=x.author_org_message.username)}}">{{ reply.reply_author_org_message.username }}</a></b>&emsp;{{ _('answered') }} <i>{{ moment(reply.timestamp).calendar() }}</i><br>
+                    {% endif %}
+                    {{ reply.message | safe }}
+                    <hr>
+                </div>
+
+                {% endfor %}
+                {% endif %}
+            </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+    
+
+
+
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script>
+    
+    $('#pills-tab a').click(function(e) {
+    e.preventDefault();
+    $(this).tab('show');
+    });
+
+    // store the currently selected tab in the hash value
+    $("#pills-tab > li > a").on("shown.bs.tab", function(e) {
+    var id = $(e.target).attr("href").substr(1);
+    window.location.hash = id;
+    });
+
+    // on load of the page: switch to the currently selected tab
+    var hash = window.location.hash;
+    $('#pills-tab a[href="' + hash + '"]').tab('show');
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#post').summernote();
+    });
+</script>
+{% endblock %}

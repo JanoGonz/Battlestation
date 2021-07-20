@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block app_content %}
+
+{% if joined_t %}
+<h1>{{ _('Joined Tournaments') }}</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-5">
+                {{ _('Name') }}
+            </th>
+            <th class="col-md-2">
+                {{ _('Rank') }}
+            </th>
+            <th class="col-md-2">
+                {{ _('Game') }}
+            </th>
+            <th class="col-md-3">
+                {{ _('Starts at:') }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tournament in joined_t %}
+        <tr>
+            <td>
+                <a href="{{ url_for('main.tournament_details', tourney=tournament.id) }}">{{ tournament.name }}</a>
+            </td>
+            <td>
+                {% if tournament.result == '-'%}
+                {{ tournament.result }}
+                {% elif tournament.result == '1'%}
+                {{ tournament.result }}st
+                {% elif tournament.result == '2'%}
+                {{ tournament.result }}nd
+                {% elif tournament.result == '3'%}
+                {{ tournament.result }}rd
+                {% else %}
+                {{ tournament.result }}th
+                {% endif %}
+            </td>
+            <td>
+                {{ tournament.game }}
+            </td>
+            <td>
+                {{ moment(tournament.starts_at).calendar() }}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+<nav aria-label="...">
+
+    <ul class="pager">
+        <li class="previous{% if not prev_url_joined %} disabled{% endif %}">
+            <a href="{{ prev_url_joined or '#' }}">
+                <span aria-hidden="true">&larr;</span>
+            </a>
+        </li>
+        <li class="next{% if not next_url_joined %} disabled{% endif %}">
+            <a href="{{ next_url_joined or '#' }}">
+                <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% else %}
+
+<h1>{{ _('You have no active tournaments')}}</h1>
+<i>{{ _('Nothing to see here, ') }}</i> <a href="{{ url_for('main.tournament_list') }}">{{ _('Feel free to join upcoming tournaments!') }}</a>
+
+{% endif %}
+
+
+{% if past_t %}
+<h1>{{ _('Past Tournaments') }}</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-5">
+                {{ _('Name') }}
+            </th>
+            <th class="col-md-2">
+                {{ _('Rank') }}
+            </th>
+            <th class="col-md-2">
+                {{ _('Game') }}
+            </th>
+            <th class="col-md-3">
+                {{ _('Started at:') }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tournament in past_t %}
+        <tr>
+            <td>
+                <a href="{{ url_for('main.tournament_details', tourney=tournament.id) }}">{{ tournament.name }}</a>
+            </td>
+            <td>
+                {% if tournament.result == '-'%}
+                {{ tournament.result }}
+                {% elif tournament.result == '1'%}
+                {{ tournament.result }}st
+                {% elif tournament.result == '2'%}
+                {{ tournament.result }}nd
+                {% elif tournament.result == '3'%}
+                {{ tournament.result }}rd
+                {% else %}
+                {{ tournament.result }}th
+                {% endif %}
+            </td>
+            <td>
+                {{ tournament.game }}
+            </td>
+            <td>
+                {{ moment(tournament.starts_at).calendar() }}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+<nav aria-label="...">
+
+    <ul class="pager">
+        <li class="previous{% if not prev_url_old %} disabled{% endif %}">
+            <a href="{{ prev_url_old or '#' }}">
+                <span aria-hidden="true">&larr;</span>
+            </a>
+        </li>
+        <li class="next{% if not next_url_old %} disabled{% endif %}">
+            <a href="{{ next_url_old or '#' }}">
+                <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+{{ super() }}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+{% endblock %}
+{% block app_content %}
+    {% if original_msg.receiver.id == current_user.id %}
+    <h1>{{ _('Send Message to %(recipient)s from %(org_sender)s', recipient=original_msg.author_org_message.username, org_sender=original_msg.receiver.name) }}</h1>
+    {% else %}
+    <h1>{{ _('Send Message to %(org_sender)s from %(recipient)s', recipient=original_msg.author_org_message.username, org_sender=original_msg.receiver.name) }}</h1>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#message').summernote();
+    });
+</script>
+{% endblock %}

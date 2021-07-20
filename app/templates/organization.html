@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block app_content %}
+<div class="card-org">
+    <div class="card-org-pic">
+        <img class="avatar" src="{{ organization.avatar(128) }}">
+    </div>
+
+    <div class="card-org-info">
+        <h1>{{ organization.name }}</h1>
+        <p>
+            {% if organization.website %}
+            <a href="https://{{ organization.website }}"><i class="fas fa-link" aria-hidden="true"></i> {{ organization.website }}</a>&nbsp; {% endif %}
+            {% if organization.contact %}<a href="mailto:{{ organization.contact }}"><i class="fas fa-envelope" aria-hidden="true"></i> {{ organization.contact }}</a>&nbsp;{% endif %}
+            {% if organization.location %}<i class="fas fa-map-marker" aria-hidden="true"></i> {{ organization.location }}{% endif %}
+        </p>
+        {% if organizes %}
+        <a href="{{ url_for('auth.edit_org', organization=organization.id) }}"><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit"></i></button></a>
+        <a href="{{ url_for('auth.new_tournament') }}"><button type="button" class="btn btn-danger">{{ _('Create a tournament') }}</button></a> 
+        {% endif %}
+        <a href="{{ url_for('main.send_message_org', org=organization.id) }}"><button type="button" class="btn btn-danger"><i class="fa fa-envelope" aria-hidden="true"></i>{{ _(' Send message') }}</button></a> 
+        
+        <div class="dropdown" style="display:inline-block; position:absolute; margin-left:4px">
+            <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              ...
+            </button>
+            <ul class="dropdown-menu dropdown-menu-left" style="position: absolute; ">
+            {% if organizes %}
+              <li><a class="dropdown-item" style="color:black" href="{{ url_for('auth.leave_organization', org=organization.id)}}">{{ _('Leave organization') }}</a></li>
+            {% else %}
+            <li><a class="dropdown-item" style="color:black" href="{{ url_for('auth.request_invitation', organization=organization.id) }}">{{ _('Request invitation') }}</a></li>
+            {% endif %}
+            </ul>
+          </div>
+
+    </div>
+</div>
+
+<ul class="nav nav-pills" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" id="pills-tournaments-tab" data-toggle="pill" href="#pills-tournaments" role="tab"
+            aria-controls="pills-tournaments">{{ _('Tournaments') }}</a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" id="pills-posts-tab" data-toggle="pill" href="#pills-posts" role="tab"
+            aria-controls="pills-posts">{{ _('Posts') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-members-tab" data-toggle="pill" href="#pills-members" role="tab"
+            aria-controls="pills-members">{{ _('Members') }}</a>
+    </li>
+    {% if organizes %}
+    <li class="nav-item">
+        <a class="nav-link" id="pills-messages-tab" data-toggle="pill" href="#pills-messages" role="tab"
+            aria-controls="pills-messages">{% if new_messages %}<i class="fa fa-exclamation-circle" aria-hidden="true"></i> {% endif %}{{ _('Messages') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-requests-tab" data-toggle="pill" href="#pills-requests" role="tab"
+            aria-controls="pills-requests">{% if new_requests %}<i class="fa fa-exclamation-circle" aria-hidden="true"></i> {% endif %}{{ _('Invitation Requests') }}</a>
+    </li>
+    {% endif %}
+</ul>
+
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade" id="pills-tournaments" role="tabpanel" aria-labelledby="pills-tournaments-tab">
+        {% if future_tournaments %}
+        <h1>{{ _('Upcoming Tournaments') }}</h1>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        {{ _('Name') }}
+                    </th>
+                    <th scope="col">
+                        {{ _('Game') }}
+                    </th>
+                    <th scope="col">
+                        {{ _('Starts at:') }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tournament in future_tournaments %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('main.tournament_details', tourney=tournament.id) }}"><span class="fas fa-trophy"></span> {{ tournament.name }}</a>
+                    </td>
+                    <td>
+                        {{ tournament.game }}
+                    </td>
+                    <td>
+                        {{ moment(tournament.starts_at).calendar() }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        {% endif %}
+
+        {% if past_tournaments %}
+        <h1>{{ _('Past tournaments') }}</h1>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        {{ _('Name') }}
+                    </th>
+                    <th scope="col">
+                        {{ _('Game') }}
+                    </th>
+                    <th scope="col">
+                        {{ _('Started at:') }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tournament in past_tournaments %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('main.tournament_details', tourney=tournament.id) }}"><span class="fas fa-trophy"></span> {{ tournament.name }}</a>
+                    </td>
+                    <td>
+                        {{ tournament.game }}
+                    </td>
+                    <td>
+                        {{ moment(tournament.starts_at).calendar() }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav aria-label="...">
+
+            <ul class="pager">
+                <li class="previous{% if not past_prev_url %} disabled{% endif %}">
+                    <a href="{{ past_prev_url or '#' }}">
+                        <span aria-hidden="true">&larr;</span>
+                   </a>
+                </li>
+                <li class="next{% if not past_next_url %} disabled{% endif %}">
+                    <a href="{{ past_next_url or '#' }}">
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            </ul>    
+        </nav>
+        {% endif %}
+
+    </div>
+    <div class="tab-pane fade in active" id="pills-posts" role="tabpanel" aria-labelledby="pills-posts-tab">
+        {% if organizes %}
+            {% for field, errors in form.errors.items() %}
+                <div class="alert alert-error">
+                    {{ form[field].label }}: {{ ', '.join(errors) }}
+                </div>
+            {% endfor %}
+        <form action="" method="post" novalidate>
+            {{ form.csrf_token() }}
+            <h2>{{ _('New post') }}</h2>
+            {{ form.post() }}
+            {{ form.submit() }}
+            </form>
+        {% endif %}
+        <h2>{{ _('Posts') }}</h2>
+        {% if posts %}
+        {% for p in posts %}
+        <div class="post">
+        <img class="avatar-xs" src="{{ organization.avatar(32) }}"><b style="font-size: 16px;"> {{ p.poster.name }}</b>&emsp;posted <i>{{ moment(p.timestamp).calendar() }}</i>
+        {% if organizes %}
+        <a href="{{ url_for('auth.edit_post', organization=organization.id, post=p.id )}}" class="btn btn-danger left"><i class="fas fa-edit"></i></a>
+        <a href="{{ url_for('auth.delete_post', organization=organization.id, post=p.id )}}" class="btn btn-danger left"><i class="fas fa-trash"></i></a>
+        {% endif %}
+        <hr>
+        <div class="post-body">
+        {{ p.body | safe }}
+        </div>
+        </div>
+        {% endfor %}
+        
+        <nav aria-label="...">
+
+            <ul class="pager">
+                <li class="previous{% if not post_prev_url %} disabled{% endif %}">
+                    <a href="{{ post_prev_url or '#' }}">
+                        <span aria-hidden="true">&larr;</span>
+                    </a>
+                </li>
+                <li class="next{% if not post_next_url %} disabled{% endif %}">
+                    <a href="{{ post_next_url or '#' }}">
+                        <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            </ul>    
+        </nav>
+        {% else %}
+        <i>{{ _('No posts yet') }}</i>
+        {% endif %}
+    </div>
+    
+    <div class="tab-pane fade" id="pills-members" role="tabpanel" aria-labelledby="pills-members-tab">
+        {% for m in members %}
+        <div  class="col-md-4 col-sm-6 col-xs-12">
+        <a href="{{ url_for('auth.user', username=m.organizer_name.username)}}" class="card-sm">
+            <div class="card-org-pic-sm">
+                <img class="avatar-sm" src="{{m.organizer_name.avatar(70)}}">
+            </div>
+            <div class="card-sm-info">
+                {{ m.organizer_name.username }}
+            </div>
+        </a>
+    </div>
+        {% endfor %}
+        
+    </div>
+    {% if organizes %}
+    <div class="tab-pane fade" id="pills-messages" role="tabpanel" aria-labelledby="pills-messages-tab">
+        {% for x, y in message_list %}
+        <div class="post">
+            <img class="avatar-xs" src="{{ x.author_org_message.avatar(32) }}"><b style="font-size: 16px;"> <a href="{{ url_for('auth.user', username=x.author_org_message.username)}}"> {{ x.author_org_message.username }}</a></b>&emsp;{{ _('posted ') }}<i>{{ moment(x.timestamp).calendar() }}</i>
+            <a href="{{ url_for('main.reply_message_org', message=x.id )}}" class="btn btn-danger left"><i class="fas fa-reply"></i></a>
+            <hr>
+            <div class="post-body">
+            {{ x.message | safe }}
+            <hr>
+            {% if y %}
+            {% for message in y %}
+            <div class="post-reply">
+                {% if message.sent_by_org %}
+                    <img class="avatar-xs" src="{{ x.receiver.avatar(32) }}"><b style="font-size: 16px;"> {{ x.receiver.name }}</b>&emsp;{{ _('answered ') }}<i>{{ moment(message.timestamp).calendar() }}</i><br>
+                {% else %}
+                    <img class="avatar-xs" src="{{ message.reply_author_org_message.avatar(32) }}"><b style="font-size: 16px;"> {{ message.reply_author_org_message.username }}</b>&emsp;{{ _('answered ') }}<i>{{ moment(message.timestamp).calendar() }}</i><br>
+                {% endif %}
+                {{ message.message | safe }}
+                <hr>
+            </div>
+            {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if organizes %}
+        {% else %}
+        {% endif %}
+    </div>
+    <div class="tab-pane fade" id="pills-requests" role="tabpanel" aria-labelledby="pills-requests-tab">
+        <ul class="nav nav-pills" id="pills-sub-tab" role="tablist">
+            <li class="nav-item active">
+                <a class="nav-link" id="pills-pending-tab" data-toggle="pill" href="#pills-pending" role="tab"
+                    aria-controls="pills-pending">{{ _('Pending') }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-denied-tab" data-toggle="pill" href="#pills-denied" role="tab"
+                    aria-controls="pills-denied">{{ _('Denied') }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-accepted-tab" data-toggle="pill" href="#pills-accepted" role="tab"
+                    aria-controls="pills-accepted">{{ _('Accepted') }}</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-sub-tabContent">
+        <div class="tab-pane fade in active" id="pills-pending" role="tabpanel" aria-labelledby="pills-pending-tab">
+            {% for i in pending_invitations %}
+            <div class="post">
+                <img class="avatar-xs" src="{{ i.requester.avatar(32)}}">&emsp;<a href="{{ url_for('auth.user', username=i.requester.username) }}">{{ i.requester.username }}</a> - <i>{{ moment(i.timestamp).calendar() }}</i>
+                <a href="{{ url_for('auth.accept_inv', inv=i.id) }}"><button class="btn btn-danger left" data-toggle="tooltip" data-placement="bottom" title="Accept"><i class="fa fa-check" aria-hidden="true"></i></button></a>
+                <a href="{{ url_for('auth.deny_inv', inv=i.id) }}"><button class="btn btn-danger left" data-toggle="tooltip" data-placement="bottom" title="Decline"><i class="fa fa-ban" aria-hidden="true"></i></button></a>
+                <hr>
+                {{ i.message | safe}}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="pills-denied" role="tabpanel" aria-labelledby="pills-denied-tab">
+            {% for i in denied_invitations %}
+            <div class="post">
+                <img class="avatar-xs" src="{{ i.requester.avatar(32)}}">&emsp;<a href="{{ url_for('auth.user', username=i.requester.username) }}">{{ i.requester.username }}</a> - <i>{{ moment(i.timestamp).calendar() }}</i>
+                <a href="{{ url_for('auth.accept_inv', inv=i.id) }}"><button class="btn btn-danger left" data-toggle="tooltip" data-placement="bottom" title="Accept"><i class="fa fa-check" aria-hidden="true"></i></button></a>
+                <a href="{{ url_for('auth.delete_inv', inv=i.id) }}"><button class="btn btn-danger left" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button></a>
+                <hr>
+                {{ i.message | safe}}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="pills-accepted" role="tabpanel" aria-labelledby="pills-accepted-tab">
+            {% for i in accepted_invitations %}
+            <div class="post">
+                <img class="avatar-xs" src="{{ i.requester.avatar(32)}}">&emsp;<a href="{{ url_for('auth.user', username=i.requester.username) }}">{{ i.requester.username }}</a> - <i>{{ moment(i.timestamp).calendar() }}</i>
+                <hr>
+                {{ i.message | safe}}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+    {% block scripts %}
+{{ super() }}
+<script>
+    $('#pills-requests-tab').on('click',function(e){
+        $('#pills-pending-tab').click()
+    });
+</script>
+<script>
+    
+    $('#pills-tab a').click(function(e) {
+    e.preventDefault();
+    $(this).tab('show');
+    window.scrollTo(0,0);
+    });
+
+    // store the currently selected tab in the hash value
+    $("#pills-tab > li > a").on("shown.bs.tab", function(e) {
+    var id = $(e.target).attr("href").substr(1);
+    window.location.hash = id;
+    });
+
+    var hash = window.location.hash;
+    $('#pills-tab a[href="' + hash + '"]').tab('show');
+    
+</script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#post').summernote();
+    });
+</script>
+{% endblock %}

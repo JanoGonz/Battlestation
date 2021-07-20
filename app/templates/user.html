@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<div class="card-org">
+        <div class="col-12 card-org-pic">
+            <img class="avatar" src="{{ user.avatar(128) }}"></div>
+        
+        <div class="col-12 card-org-info">
+            <h2>{{ user.username }}
+                
+            {% if user == current_user %}
+                <p><a href="{{ url_for('auth.edit_profile') }}"><button type="button" class="btn btn-danger"><i class="fas fa-edit"></i></button></a>
+                <a href="{{ url_for('auth.create_org') }}"><button type="button" class="btn btn-danger">{{ _('Create an organization') }}</button></a></p>
+            {% endif %}
+            </h2>
+            {{ user.about_me }}
+            {% if user != current_user %}
+<p>
+    <a href="{{ url_for('main.send_message',
+                        recipient=user.username) }}">
+        <i class="fas fa-comment-alt"></i> {{ _('Send private message') }} 
+    </a>
+</p>
+{% endif %}
+            
+</div>
+</div>
+
+<hr>
+<table class="table table-hover">
+    <h1>{{ _('Joined tournaments') }}</h1>
+    {% if joined_tournaments %}
+    <thead>
+        <tr>
+            <th scope="col">
+                {{ _('Tournament name') }}
+        </th>
+        <th scope="col">
+            {{ _('Result') }}
+    </th>
+            <th scope="col">
+                {{ _('Starts at') }}
+        </th>
+            <th scope="col">
+                {{ _('Game') }}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for t in joined_tournaments %}
+        <tr>
+            <td class="col-md-5">
+                <a href="{{ url_for('main.tournament_details', tourney=t.id) }}"><span class="fas fa-trophy"></span> {{ t.name }}</a>
+            </td>
+            <td class="col-md-2">
+                {{ t.result }}{% if t.result == '1' %}st{% elif t.result == '2' %}nd{% elif t.result == '3' %}rd{% elif t.result == '-' %}{% else %}th{% endif %}
+            </td>
+            <td class="col-md-3">
+                {{ moment(t.starts_at).calendar() }}
+            </td>
+            <td class="col-md-2">
+                {{ t.game }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    
+<ul class="pager">
+<li class="previous{% if not prev_url_joined %} disabled{% endif %}">
+    <a href="{{ prev_url_joined or '#' }}">
+        <span aria-hidden="true">&larr;</span>
+    </a>
+</li>
+<li class="next{% if not next_url_joined %} disabled{% endif %}">
+    <a href="{{ next_url_joined or '#' }}">
+        <span aria-hidden="true">&rarr;</span>
+    </a>
+</li></ul>
+    {% else %}
+    {{ _('No tournaments joined, ') }}<a href="{{url_for('main.tournament_list')}}">{{ _('check the tournament list') }}</a>
+    {% endif %}
+{% if organized_tournaments %}
+<h1 id="org">{{ _('Organized tournaments') }}</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">
+            {{ _('Tournament name') }}
+        </th>
+        <th scope="col">
+            {{ _('Starts at') }}
+        </th>
+        <th scope="col">
+            {{ _('Game') }}
+        </th>
+        <!-- <th>
+
+        </th> -->
+    </tr>
+    </thead>
+    <tbody>
+    {% for t in organized_tournaments %}
+    <tr>
+        <td class="col-md-7">
+            <a href="{{ url_for('main.tournament_details', tourney=t.id) }}"><span class="fas fa-trophy"></span> {{ t.name }}</a>
+        </td>
+        <td class="col-md-3">
+            {{ moment(t.starts_at).calendar() }}
+        </td>
+        <td class="col-md-2">
+            {{ t.game }}
+        </td>
+        <!-- <td class="col-md-1">
+            {% if user.id == current_user.id %}
+            <a href="{{ url_for('auth.edit_tournament', t=t.id) }}"><i class="fas fa-edit"></i></a>
+            {% endif %}
+        </td> -->
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+<ul class="pager">
+<li class="previous{% if not prev_url_organized %} disabled{% endif %}">
+    <a href="{{ prev_url_organized or '#' }}#org">
+        <span aria-hidden="true">&larr;</span>
+    </a>
+</li>
+<li class="next{% if not next_url_organized %} disabled{% endif %}">
+    <a href="{{ next_url_organized or '#' }}#org">
+        <span aria-hidden="true">&rarr;</span>
+    </a>
+</li>
+</ul>
+{% endif %}
+
+{% endblock %}

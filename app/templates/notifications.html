@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+{% if t_alerts %}
+    {% for t_alert in t_alerts %}
+    {% if t_alert.type== 0 %}
+    <a href="{{ url_for('main.activity') }}">
+        <div class="alert-card">
+            <p>
+    <i class="fa fa-bell" aria-hidden="true"></i>
+    {% elif t_alert.type==1 %}
+    <a href="{{ url_for('main.activity') }}">
+        <div class="alert-card">
+            <p>
+    <i class="fas fa-clock    "></i>
+    {% elif t_alert.type==2 %}
+    <a href="{{ url_for('main.activity') }}">
+        <div class="alert-card">
+            <p>
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+    {% elif t_alert.type==3 %}
+    <a href="{{ url_for('main.tournament_details', tourney = t_alert.tournament_id) }}">
+        <div class="alert-card">
+            <p>
+    <i class="fas fa-exchange-alt    "></i>
+    {% elif t_alert.type==4 %}
+    <a href="{{ url_for('main.tournament_details', tourney = t_alert.tournament_id) }}">
+        <div class="alert-card">
+            <p>
+    <i class="fa fa-ban" aria-hidden="true"></i>
+    {% endif %}
+      {{ t_alert.message }}</p>
+      <i>{{ moment(t_alert.timestamp).fromNow() }}</i>
+</div>
+</a>
+    {% endfor %}
+    {% else %}
+    <i>{{ _('You have no notifications yet') }}</i>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,1088 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-06-21 00:15+0200\n"
+"PO-Revision-Date: 2021-06-11 01:50+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: app/__init__.py:35
+msgid "Please log in to access this page."
+msgstr "Por favor, identifíquese para acceder a esta página"
+
+#: app/auth/forms.py:18 app/auth/forms.py:24 app/auth/forms.py:44
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: app/auth/forms.py:19 app/auth/forms.py:26 app/auth/forms.py:69
+msgid "Password"
+msgstr "Contraseña"
+
+#: app/auth/forms.py:20
+msgid "Remember Me"
+msgstr "Recuérdame"
+
+#: app/auth/forms.py:21 app/templates/auth/login.html:5
+msgid "Sign In"
+msgstr "Identificarse"
+
+#: app/auth/forms.py:25 app/auth/forms.py:65
+msgid "Email"
+msgstr "Email"
+
+#: app/auth/forms.py:28 app/auth/forms.py:71
+msgid "Repeat Password"
+msgstr "Repite la contraseña"
+
+#: app/auth/forms.py:30 app/templates/auth/register.html:5
+msgid "Register"
+msgstr "Registro"
+
+#: app/auth/forms.py:35
+msgid "Username already in use"
+msgstr "Nombre de usuario ya registrado"
+
+#: app/auth/forms.py:40
+msgid "Email address already in use"
+msgstr "Dirección de correo ya registrada"
+
+#: app/auth/forms.py:45
+msgid "About me"
+msgstr "Sobre mi"
+
+#: app/auth/forms.py:46 app/auth/forms.py:249
+msgid "Profile pic"
+msgstr "Imagen de perfil"
+
+#: app/auth/forms.py:47 app/auth/forms.py:62 app/auth/forms.py:79
+#: app/auth/forms.py:95 app/auth/forms.py:144 app/auth/forms.py:200
+#: app/auth/forms.py:242 app/auth/forms.py:250 app/auth/forms.py:265
+#: app/auth/forms.py:273 app/main/forms.py:17 app/main/forms.py:33
+#: app/main/forms.py:50 app/main/forms.py:54
+msgid "Submit"
+msgstr "Enviar"
+
+#: app/auth/forms.py:59
+msgid "Username already in use."
+msgstr "Nombre de usuario ya en uso."
+
+#: app/auth/forms.py:66 app/auth/forms.py:72
+msgid "Request Password Reset"
+msgstr "Solicitar reinicio de contraseña"
+
+#: app/auth/forms.py:75 app/auth/forms.py:245
+msgid "Organization name"
+msgstr "Nombre de organización"
+
+#: app/auth/forms.py:76
+msgid "Location (optional)"
+msgstr "Ubicación (opcional)"
+
+#: app/auth/forms.py:77
+msgid "Website (optional)"
+msgstr "Sitio web (opcional)"
+
+#: app/auth/forms.py:78
+msgid "Contact email (optional)"
+msgstr "Dirección de correo electrónico (opcional)"
+
+#: app/auth/forms.py:84 app/auth/forms.py:261
+msgid "Organization name already in use."
+msgstr "Nombre de la organización ya registrado"
+
+#: app/auth/forms.py:88 app/auth/forms.py:130 app/auth/forms.py:186
+#: app/templates/console.html:111 app/templates/my_tournaments.html:14
+#: app/templates/my_tournaments.html:88 app/templates/organization.html:78
+#: app/templates/organization.html:114
+#: app/templates/tournament_details.html:129
+#: app/templates/tournament_list.html:10 app/templates/tournament_list.html:65
+msgid "Name"
+msgstr "Nombre"
+
+#: app/auth/forms.py:89 app/auth/forms.py:131 app/auth/forms.py:187
+#: app/templates/my_tournaments.html:20 app/templates/my_tournaments.html:94
+#: app/templates/organization.html:81 app/templates/organization.html:117
+#: app/templates/tournament_list.html:13 app/templates/tournament_list.html:68
+#: app/templates/user.html:45 app/templates/user.html:95
+msgid "Game"
+msgstr "Juego"
+
+#: app/auth/forms.py:90 app/auth/forms.py:132 app/auth/forms.py:188
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#: app/auth/forms.py:91 app/auth/forms.py:138 app/auth/forms.py:194
+msgid "Organizer"
+msgstr "Organizador"
+
+#: app/auth/forms.py:92 app/auth/forms.py:140 app/auth/forms.py:196
+msgid "Time between rounds"
+msgstr "Tiempo entre rondas"
+
+#: app/auth/forms.py:93 app/auth/forms.py:141 app/auth/forms.py:197
+msgid "Number of rounds"
+msgstr "Número de rondas"
+
+#: app/auth/forms.py:94 app/auth/forms.py:143 app/auth/forms.py:199
+msgid "Visible"
+msgstr "Visible"
+
+#: app/auth/forms.py:102 app/auth/forms.py:105 app/auth/forms.py:151
+#: app/auth/forms.py:154 app/auth/forms.py:207 app/auth/forms.py:210
+msgid "As user"
+msgstr "Como usuario"
+
+#: app/auth/forms.py:108 app/auth/forms.py:157 app/auth/forms.py:213
+#: app/templates/tournament_details.html:32
+msgid "1 hour"
+msgstr "1 hora"
+
+#: app/auth/forms.py:109 app/auth/forms.py:158 app/auth/forms.py:214
+#: app/templates/tournament_details.html:33
+msgid "1 week"
+msgstr "1 semana"
+
+#: app/auth/forms.py:110 app/auth/forms.py:159 app/auth/forms.py:215
+msgid "2 minutes :)"
+msgstr "1 minuto"
+
+#: app/auth/forms.py:127 app/auth/forms.py:183 app/auth/forms.py:238
+msgid "You cannot create a tournament that starts in the past"
+msgstr "No puedes crear un torneo que empieza en el pasado"
+
+#: app/auth/forms.py:133 app/auth/forms.py:189
+#: app/templates/auth/edit_tournament.html:37
+#: app/templates/auth/new_tournament_adv.html:31 app/templates/console.html:58
+#: app/templates/tournament_details.html:76
+msgid "Description"
+msgstr "Descripción"
+
+#: app/auth/forms.py:134 app/auth/forms.py:190
+#: app/templates/auth/edit_tournament.html:41
+#: app/templates/auth/new_tournament_adv.html:35 app/templates/console.html:63
+#: app/templates/tournament_details.html:81
+msgid "Rules"
+msgstr "Reglas"
+
+#: app/auth/forms.py:135 app/auth/forms.py:191
+#: app/templates/auth/edit_tournament.html:45
+#: app/templates/auth/new_tournament_adv.html:39 app/templates/console.html:69
+#: app/templates/tournament_details.html:87
+msgid "Schedule"
+msgstr "Horario"
+
+#: app/auth/forms.py:136 app/auth/forms.py:192
+#: app/templates/auth/edit_tournament.html:49
+#: app/templates/auth/new_tournament_adv.html:43 app/templates/console.html:75
+#: app/templates/tournament_details.html:93
+msgid "Prizes"
+msgstr "Premios"
+
+#: app/auth/forms.py:137 app/auth/forms.py:193
+#: app/templates/auth/edit_tournament.html:53
+#: app/templates/auth/new_tournament_adv.html:47 app/templates/console.html:81
+#: app/templates/tournament_details.html:99
+msgid "Contact"
+msgstr "Contacto"
+
+#: app/auth/forms.py:139 app/auth/forms.py:195
+msgid "Type"
+msgstr "Tipo"
+
+#: app/auth/forms.py:142 app/auth/forms.py:198
+msgid "Tournament Banner"
+msgstr "Imagen de torneo"
+
+#: app/auth/forms.py:175 app/auth/forms.py:231 app/templates/console.html:35
+#: app/templates/tournament_details.html:40
+msgid "Swiss"
+msgstr "Suizo"
+
+#: app/auth/forms.py:176 app/auth/forms.py:232 app/templates/console.html:37
+#: app/templates/tournament_details.html:42
+msgid "League"
+msgstr "Liga"
+
+#: app/auth/forms.py:177 app/auth/forms.py:233 app/templates/console.html:39
+#: app/templates/tournament_details.html:44
+msgid "Single elimination"
+msgstr "Eliminación única"
+
+#: app/auth/forms.py:178 app/auth/forms.py:234 app/templates/console.html:41
+#: app/templates/tournament_details.html:46
+msgid "Double elimination"
+msgstr "Eliminación doble"
+
+#: app/auth/forms.py:241
+msgid "Post"
+msgstr "Publicación"
+
+#: app/auth/forms.py:246
+msgid "Website"
+msgstr "Sitio web"
+
+#: app/auth/forms.py:247
+msgid "Contact address"
+msgstr "Dirección de contacto"
+
+#: app/auth/forms.py:248
+msgid "Location"
+msgstr "Ubicación"
+
+#: app/auth/forms.py:264
+msgid "Body of the request"
+msgstr "Cuerpo de la solicitud"
+
+#: app/auth/forms.py:269 app/auth/forms.py:270 app/main/forms.py:30
+#: app/main/forms.py:31 app/templates/activity.html:44
+#: app/templates/activity.html:84 app/templates/activity.html:88
+#: app/templates/console.html:194 app/templates/console.html:256
+#: app/templates/console.html:263 app/templates/tournament_details.html:203
+#: app/templates/user.html:39
+msgid "Result"
+msgstr "Resultado"
+
+#: app/auth/routes.py:72
+msgid "Invalid username or password"
+msgstr "Usuario o contraseña inválidos"
+
+#: app/auth/routes.py:81 app/templates/base.html:41
+msgid "Login"
+msgstr "Ingresar"
+
+#: app/auth/routes.py:99
+msgid "You have been registered succesfully"
+msgstr "Has sido registrado con éxito"
+
+#: app/auth/routes.py:101
+msgid "Sign up"
+msgstr "Ingresar"
+
+#: app/auth/routes.py:133
+msgid "User"
+msgstr "Usuario"
+
+#: app/auth/routes.py:152
+msgid "Changes saved"
+msgstr "Cambios guardados"
+
+#: app/auth/routes.py:159 app/templates/edit_profile.html:5
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: app/auth/routes.py:172
+msgid "Check your email for instructions to reset your password"
+msgstr ""
+"Mira tu email para recibir instrucciones sobre como reiniciar tu "
+"contraseña"
+
+#: app/auth/routes.py:174 app/auth/routes.py:189
+#: app/templates/auth/reset_password_request.html:5
+msgid "Reset password"
+msgstr "Restablecer contraseña"
+
+#: app/auth/routes.py:187
+msgid "Your password has been reseted."
+msgstr "Tu contraseña ha sido restablecida"
+
+#: app/auth/routes.py:202
+msgid "Organization created"
+msgstr "Organización creada"
+
+#: app/auth/routes.py:204
+msgid "New organization"
+msgstr "Nueva organización"
+
+#: app/auth/routes.py:225
+msgid "Organization {} not found"
+msgstr "Organización {} no encontrada"
+
+#: app/auth/routes.py:270
+msgid "Added the new post"
+msgstr "Añadida una nueva publicación"
+
+#: app/auth/routes.py:318 app/templates/auth/edit_org.html:9
+msgid "Edit organization"
+msgstr "Editar organización"
+
+#: app/auth/routes.py:332
+msgid "Organization succesfully edited"
+msgstr "Organización editada con éxito"
+
+#: app/auth/routes.py:336 app/templates/edit_post.html:9
+msgid "Edit post"
+msgstr "Editar publicación"
+
+#: app/auth/routes.py:349
+msgid "Post deleted"
+msgstr "Publicación eliminada"
+
+#: app/auth/routes.py:389 app/auth/routes.py:432
+msgid "Tournament registered correctly"
+msgstr "Torneo registrado con éxito"
+
+#: app/auth/routes.py:391
+msgid "New Tournament"
+msgstr "Nuevo torneo"
+
+#: app/auth/routes.py:435
+msgid "New tournament Advanced"
+msgstr "Nuevo torneo -  Avanzado"
+
+#: app/auth/routes.py:501 app/templates/auth/edit_tournament.html:11
+msgid "Edit tournament"
+msgstr "Editar torneo"
+
+#: app/auth/routes.py:519
+msgid "Tournament deleted"
+msgstr "Torneo eliminado"
+
+#: app/auth/routes.py:537
+msgid "Request submitted"
+msgstr "Solicitud enviada con éxito"
+
+#: app/auth/routes.py:539 app/templates/auth/request_invitation.html:9
+#: app/templates/organization.html:36
+msgid "Request invitation"
+msgstr "Solicitar invitación"
+
+#: app/auth/routes.py:542
+msgid "You have already submitted a invitation request"
+msgstr "Ya has enviado una solicitud"
+
+#: app/auth/routes.py:554
+msgid "Invitation denied"
+msgstr "Invitación denegada"
+
+#: app/auth/routes.py:574
+msgid "Invitation accepted"
+msgstr "Invitación aceptada"
+
+#: app/auth/routes.py:588
+msgid "Invitation deleted, the user can reapply now."
+msgstr "Invitación eliminada, ahora el usuario puede mandar una nueva."
+
+#: app/auth/routes.py:604
+msgid "You have left the organization"
+msgstr "Has abandonado la organización"
+
+#: app/auth/routes.py:614 app/main/routes.py:128
+msgid "Tournament not found"
+msgstr "Torneo no encontrado"
+
+#: app/auth/routes.py:768
+msgid "Result updated"
+msgstr "Resultado actualizado"
+
+#: app/auth/routes.py:773 app/templates/tournament_details.html:20
+msgid "Console"
+msgstr "Administrar"
+
+#: app/auth/routes.py:810
+msgid "Member unbanned from the tournament"
+msgstr "Participación reestablecida"
+
+#: app/auth/routes.py:819
+msgid "Member banned from the tournament"
+msgstr "Participación revocada"
+
+#: app/main/forms.py:20 app/main/routes.py:112
+msgid "Search"
+msgstr "Buscar"
+
+#: app/main/forms.py:49
+msgid "Message"
+msgstr "Mensaje"
+
+#: app/main/routes.py:24 app/main/routes.py:193
+msgid "Home"
+msgstr "Principal"
+
+#: app/main/routes.py:42 app/main/routes.py:59
+msgid "Tournament {} not found"
+msgstr "Torneo {} no encontrado"
+
+#: app/main/routes.py:48
+msgid "Joined succesfuly"
+msgstr "Te has unido con éxito"
+
+#: app/main/routes.py:51
+msgid "Tournament has already started"
+msgstr "El torneo ya ha empezado."
+
+#: app/main/routes.py:64
+msgid "Left succesfuly"
+msgstr "Has abandonado con éxito"
+
+#: app/main/routes.py:87 app/templates/base.html:36
+msgid "Tournament list"
+msgstr "Lista de torneos"
+
+#: app/main/routes.py:207 app/templates/organizations.html:33
+msgid "Organizations"
+msgstr "Organizaciones"
+
+#: app/main/routes.py:234 app/templates/home.html:43
+msgid "My tournaments"
+msgstr "Mis torneos"
+
+#: app/main/routes.py:279 app/main/routes.py:298
+msgid "Result confirmed"
+msgstr "Resultado confirmado"
+
+#: app/main/routes.py:292 app/main/routes.py:311
+msgid "Error submitting result. Your result and your opponent's don't match"
+msgstr ""
+"Error al enviar el resultado. Tu resultado no coincide con el de tu "
+"oponente"
+
+#: app/main/routes.py:317
+msgid "The round has ended before you submitted the result"
+msgstr "La ronda ha terminado antes de que pudieses enviar el resultado"
+
+#: app/main/routes.py:321 app/templates/home.html:13
+msgid "Activity"
+msgstr "Actividad"
+
+#: app/main/routes.py:332
+msgid "Message sent"
+msgstr "Mensaje enviado"
+
+#: app/main/routes.py:334
+msgid "Send message to "
+msgstr "Enviar mensaje a "
+
+#: app/main/routes.py:354
+msgid "Reply sent succesfully"
+msgstr "Respuesta enviada con éxito"
+
+#: app/main/routes.py:356 app/templates/_message_list.html:22
+#: app/templates/_message_sent_list.html:22
+msgid "Reply"
+msgstr "Responder"
+
+#: app/main/routes.py:372
+msgid "Your message has been sent."
+msgstr "Tu mensaje ha sido enviado."
+
+#: app/main/routes.py:374
+msgid "Send Message"
+msgstr "Enviar mensaje"
+
+#: app/main/routes.py:410
+msgid "Inbox"
+msgstr "Recibidos"
+
+#: app/main/routes.py:448
+msgid "Deleted message"
+msgstr "Borrar mensaje"
+
+#: app/main/routes.py:451
+msgid "error"
+msgstr "Error"
+
+#: app/main/routes.py:460 app/templates/home.html:33
+msgid "Notifications"
+msgstr "Notificaciones"
+
+#: app/main/routes.py:464
+msgid "Licenses"
+msgstr "Licencias"
+
+#: app/templates/_message_list.html:16
+#, python-format
+msgid "%(username)s said %(when)s"
+msgstr "%(username)s dijo %(when)s"
+
+#: app/templates/_message_list.html:18 app/templates/_message_sent_list.html:18
+msgid "Delete"
+msgstr "Borrar"
+
+#: app/templates/_message_list.html:31 app/templates/_message_sent_list.html:31
+msgid "Translate"
+msgstr "Traducir"
+
+#: app/templates/_message_sent_list.html:16
+#, python-format
+msgid "%(username)s received %(when)s"
+msgstr "%(username)s recibió %(when)s"
+
+#: app/templates/activity.html:4
+msgid "Active tournaments"
+msgstr "Torneos activos"
+
+#: app/templates/activity.html:15
+msgid "Active round:"
+msgstr "Ronda actual:"
+
+#: app/templates/activity.html:17 app/templates/activity.html:19
+msgid "Ends"
+msgstr "Finaliza"
+
+#: app/templates/activity.html:25
+msgid "You have been awarded a bye"
+msgstr "Has recibido un bye"
+
+#: app/templates/activity.html:38 app/templates/activity.html:78
+msgid "Result submitted"
+msgstr "Resultado enviado"
+
+#: app/templates/activity.html:116 app/templates/my_tournaments.html:75
+msgid "You have no active tournaments"
+msgstr "No hay torneos activos"
+
+#: app/templates/activity.html:117 app/templates/my_tournaments.html:76
+msgid "Nothing to see here, "
+msgstr "No hay nada que ver aquí, "
+
+#: app/templates/activity.html:117 app/templates/my_tournaments.html:76
+msgid "Feel free to join upcoming tournaments!"
+msgstr "¡Siéntete libre de unirte a uno de los próximos torneos!"
+
+#: app/templates/base.html:24
+msgid "Toggle navigation"
+msgstr "Activar navegación"
+
+#: app/templates/base.html:34
+msgid "Create tournament"
+msgstr "Crear torneo"
+
+#: app/templates/base.html:68
+msgid "My profile"
+msgstr "Mi perfil"
+
+#: app/templates/base.html:71
+msgid "Settings"
+msgstr "Configuración"
+
+#: app/templates/base.html:75
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: app/templates/console.html:13 app/templates/console.html:15
+#: app/templates/tournament_details.html:14
+#: app/templates/tournament_details.html:16
+msgid "Created by: "
+msgstr "Creado por: "
+
+#: app/templates/console.html:24 app/templates/tournament_details.html:29
+msgid "Starts at: "
+msgstr "Empieza: "
+
+#: app/templates/console.html:25 app/templates/tournament_details.html:30
+msgid "Number of rounds: "
+msgstr "Número de rondas: "
+
+#: app/templates/console.html:26 app/templates/tournament_details.html:31
+msgid "Time between rounds: "
+msgstr "Tiempo entre rondas: "
+
+#: app/templates/console.html:35 app/templates/console.html:37
+#: app/templates/console.html:39 app/templates/console.html:41
+#: app/templates/tournament_details.html:40
+#: app/templates/tournament_details.html:42
+#: app/templates/tournament_details.html:44
+#: app/templates/tournament_details.html:46
+msgid "Tournament type: "
+msgstr "Tipo de torneo: "
+
+#: app/templates/console.html:105 app/templates/tournament_details.html:123
+msgid "Participants"
+msgstr "Participantes"
+
+#: app/templates/console.html:114 app/templates/tournament_details.html:132
+msgid "Position"
+msgstr "Posición"
+
+#: app/templates/console.html:117 app/templates/tournament_details.html:135
+msgid "Record"
+msgstr "Récord"
+
+#: app/templates/console.html:161 app/templates/tournament_details.html:170
+msgid "Pairings"
+msgstr "Emparejamientos"
+
+#: app/templates/console.html:172
+msgid "Round"
+msgstr "Ronda"
+
+#: app/templates/console.html:188 app/templates/tournament_details.html:197
+msgid "Player 1"
+msgstr "Jugador 1"
+
+#: app/templates/console.html:191 app/templates/tournament_details.html:200
+msgid "Player 2"
+msgstr "Jugador 2"
+
+#: app/templates/console.html:214 app/templates/tournament_details.html:223
+msgid "The player was awarded a bye"
+msgstr "El jugador ha recibido un bye"
+
+#: app/templates/console.html:216 app/templates/tournament_details.html:225
+msgid "Result not submitted yet"
+msgstr "Resultado no enviado"
+
+#: app/templates/home.html:23
+msgid "Explore"
+msgstr "Explorar"
+
+#: app/templates/home.html:53
+msgid "Create"
+msgstr "Crear"
+
+#: app/templates/home.html:63
+msgid "Organizers"
+msgstr "Organizadores"
+
+#: app/templates/index.html:4
+msgid "Welcome to BattleStation"
+msgstr "Bienvenido a Battlestation"
+
+#: app/templates/index.html:5
+#, python-format
+msgid "Hi, %(username)s!"
+msgstr "Hola, %(username)s!"
+
+#: app/templates/index.html:8
+msgid "We are a site focused in event organization for every kind of games."
+msgstr ""
+"Somos una web centrada en la organización de eventos para todo tipo de "
+"juegos"
+
+#: app/templates/index.html:9
+msgid ""
+"You can use the tools we provide to make communities and assist you "
+"organizing events."
+msgstr ""
+"Puedes usar nuestras herramientas para crear comunidades para que te "
+"ayuden organizando eventos."
+
+#: app/templates/index.html:10
+msgid "You can also"
+msgstr "También puedes"
+
+#: app/templates/index.html:10
+msgid "check the license and contact information!"
+msgstr ""
+"echar un vistazo a las licencias que utilizamos y a la información de "
+"contacto."
+
+#: app/templates/licenses.html:4
+msgid "Thanks for using BattleStation!"
+msgstr "Gracias por usar BattleStation"
+
+#: app/templates/licenses.html:5
+msgid ""
+"If you have any questions, feedback or you need support of any kind you "
+"can contact us on"
+msgstr ""
+"Si tienes preguntas, sugerencias o necesitas asistencia de cualquier tipo"
+" puedes contactarnos en"
+
+#: app/templates/licenses.html:6
+msgid "We use the following licenses"
+msgstr "Usamos las siguientes licencias"
+
+#: app/templates/messages.html:8 app/templates/organization.html:60
+msgid "Messages"
+msgstr "Mensajes"
+
+#: app/templates/messages.html:12
+msgid "Received messages"
+msgstr "Mensajes recibidos"
+
+#: app/templates/messages.html:16
+msgid "Sent messages"
+msgstr "Mensajes enviados"
+
+#: app/templates/messages.html:20
+msgid "Organization Messages"
+msgstr "Mensajes a organizaciones"
+
+#: app/templates/messages.html:34 app/templates/messages.html:58
+#: app/templates/messages_sent.html:13
+msgid "Newer messages"
+msgstr "Mensajes nuevos"
+
+#: app/templates/messages.html:39 app/templates/messages.html:63
+#: app/templates/messages_sent.html:18
+msgid "Older messages"
+msgstr "Mensajes antiguos"
+
+#: app/templates/messages.html:45
+msgid "No messages yet"
+msgstr "No hay mensajes todavía"
+
+#: app/templates/messages.html:69
+msgid "No messages sent"
+msgstr "No hay mensajes enviados"
+
+#: app/templates/messages.html:76
+msgid "posted"
+msgstr "publicó"
+
+#: app/templates/messages.html:87 app/templates/messages.html:89
+msgid "answered"
+msgstr "respondió"
+
+#: app/templates/messages_sent.html:4
+msgid "Messages sent"
+msgstr "Mensajes enviados"
+
+#: app/templates/messages_sent.html:5
+msgid "See messages received"
+msgstr "Ver mensajes enviados"
+
+#: app/templates/my_tournaments.html:8
+msgid "Joined Tournaments"
+msgstr "Torneos por empezar"
+
+#: app/templates/my_tournaments.html:17 app/templates/my_tournaments.html:91
+msgid "Rank"
+msgstr "Rango"
+
+#: app/templates/my_tournaments.html:23 app/templates/organization.html:84
+#: app/templates/tournament_list.html:16 app/templates/tournament_list.html:71
+msgid "Starts at:"
+msgstr "Empieza:"
+
+#: app/templates/my_tournaments.html:82
+msgid "Past Tournaments"
+msgstr "Torneos ya finalizados"
+
+#: app/templates/my_tournaments.html:97 app/templates/organization.html:120
+msgid "Started at:"
+msgstr "Empezó: "
+
+#: app/templates/notifications.html:38
+msgid "You have no notifications yet"
+msgstr "No tienes notificaciones todavía"
+
+#: app/templates/organization.html:24
+msgid "Create a tournament"
+msgstr "Crear un torneo"
+
+#: app/templates/organization.html:26
+msgid " Send message"
+msgstr " Enviar mensaje"
+
+#: app/templates/organization.html:34
+msgid "Leave organization"
+msgstr "Dejar organización"
+
+#: app/templates/organization.html:47
+msgid "Tournaments"
+msgstr "Torneos"
+
+#: app/templates/organization.html:51 app/templates/organization.html:172
+msgid "Posts"
+msgstr "Publicaciones"
+
+#: app/templates/organization.html:55
+msgid "Members"
+msgstr "Miembros"
+
+#: app/templates/organization.html:64
+msgid "Invitation Requests"
+msgstr "Solicitudes"
+
+#: app/templates/organization.html:72
+msgid "Upcoming Tournaments"
+msgstr "Próximos torneos"
+
+#: app/templates/organization.html:108 app/templates/tournament_list.html:59
+msgid "Past tournaments"
+msgstr "Torneos finalizados"
+
+#: app/templates/organization.html:167
+msgid "New post"
+msgstr "Nueva publicación"
+
+#: app/templates/organization.html:204
+msgid "No posts yet"
+msgstr "No hay publicaciones todavía"
+
+#: app/templates/organization.html:227
+msgid "posted "
+msgstr "publicó "
+
+#: app/templates/organization.html:237 app/templates/organization.html:239
+msgid "answered "
+msgstr "respondió "
+
+#: app/templates/organization.html:258
+msgid "Pending"
+msgstr "Pendiente"
+
+#: app/templates/organization.html:262
+msgid "Denied"
+msgstr "Denegada"
+
+#: app/templates/organization.html:266
+msgid "Accepted"
+msgstr "Aceptada"
+
+#: app/templates/organizations.html:6
+msgid "My Organizations"
+msgstr "Mis organizaciones"
+
+#: app/templates/organizations.html:64
+msgid "Go back"
+msgstr "Atrás"
+
+#: app/templates/organizations.html:69
+msgid "Next"
+msgstr "Siguiente"
+
+#: app/templates/reply_message_org.html:10
+#, python-format
+msgid "Send Message to %(recipient)s from %(org_sender)s"
+msgstr "Enviar mensaje a %(recipient)s"
+
+#: app/templates/reply_message_org.html:12
+#, python-format
+msgid "Send Message to %(org_sender)s from %(recipient)s"
+msgstr "Enviar mensaje a %(recipient)s"
+
+#: app/templates/search.html:4
+msgid "Search Results"
+msgstr "Resultados de búsqueda"
+
+#: app/templates/search.html:31
+msgid "Previous results"
+msgstr "Resultados anteriores"
+
+#: app/templates/search.html:36
+msgid "Next results"
+msgstr "Siguientes resultados"
+
+#: app/templates/send_message.html:9 app/templates/send_message_org.html:9
+#, python-format
+msgid "Send Message to %(recipient)s"
+msgstr "Enviar mensaje a %(recipient)s"
+
+#: app/templates/tournament_alerts_popup.html:40
+msgid "No new alerts"
+msgstr "No hay alertas"
+
+#: app/templates/tournament_details.html:34
+msgid "1 minute"
+msgstr "2 minutos"
+
+#: app/templates/tournament_details.html:37
+msgid "Minimum amount of participants: "
+msgstr "Mínima cantidad de participantes: "
+
+#: app/templates/tournament_details.html:51
+msgid "Join tournament"
+msgstr "Unirse al torneo"
+
+#: app/templates/tournament_details.html:55
+msgid " You have been banned"
+msgstr "Has recibido un bye"
+
+#: app/templates/tournament_details.html:57
+msgid "Leave tournament"
+msgstr "Abandonar torneo"
+
+#: app/templates/tournament_details.html:181
+msgid "Round "
+msgstr "Ronda "
+
+#: app/templates/tournament_list.html:4
+msgid "Tournaments coming"
+msgstr "Próximos torneos"
+
+#: app/templates/tournament_list.html:38
+msgid "No tournaments scheduled"
+msgstr "No hay torneos programados"
+
+#: app/templates/tournament_list.html:94
+msgid "No past tournaments"
+msgstr "No hay torneos finalizados"
+
+#: app/templates/user.html:13
+msgid "Create an organization"
+msgstr "Crear una organización"
+
+#: app/templates/user.html:21
+msgid "Send private message"
+msgstr "Enviar mensaje privado"
+
+#: app/templates/user.html:31
+msgid "Joined tournaments"
+msgstr "Torneos como participante"
+
+#: app/templates/user.html:36 app/templates/user.html:89
+msgid "Tournament name"
+msgstr "Nombre de torneo"
+
+#: app/templates/user.html:42 app/templates/user.html:92
+msgid "Starts at"
+msgstr "Empieza"
+
+#: app/templates/user.html:81
+msgid "No tournaments joined, "
+msgstr "No participas en ningún torneo, "
+
+#: app/templates/user.html:81
+msgid "check the tournament list"
+msgstr "mira la lista de torneos"
+
+#: app/templates/user.html:84
+msgid "Organized tournaments"
+msgstr "Torneos organizados"
+
+#: app/templates/auth/create_org.html:5
+msgid "Create organization"
+msgstr "Crear organización"
+
+#: app/templates/auth/login.html:13
+msgid "New User?"
+msgstr "¿Nuevo usuario?"
+
+#: app/templates/auth/login.html:13
+msgid "Click to register"
+msgstr "Pulsa para registrarte"
+
+#: app/templates/auth/login.html:16
+msgid "Forgot Your Password?"
+msgstr "¿Has olvidado tu contraseña?"
+
+#: app/templates/auth/login.html:17
+msgid "Click to Reset It"
+msgstr "Pulsa para reiniciarla"
+
+#: app/templates/auth/new_tournament.html:10
+msgid "New tournament"
+msgstr "Nuevo torneo"
+
+#: app/templates/auth/new_tournament.html:11
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: app/templates/auth/new_tournament_adv.html:11
+msgid "New tournament - Advanced"
+msgstr "Nuevo torneo -  Avanzado"
+
+#: app/templates/auth/reset_password.html:5
+msgid "Reset Your Password"
+msgstr "Reestablece tu contraseña"
+
+#: app/templates/email/reset_password.html:1
+msgid "Dear"
+msgstr "Querido"
+
+#: app/templates/email/reset_password.html:3
+msgid "To reset your password"
+msgstr "Reestablece tu contraseña"
+
+#: app/templates/email/reset_password.html:5
+msgid "click here"
+msgstr "Pulsa aquí"
+
+#: app/templates/email/reset_password.html:8
+msgid ""
+"Alternatively, you can paste the following link in your browser's address"
+" bar:"
+msgstr "También puedes pegar el siguiente enlace en la barra de tu navegador"
+
+#: app/templates/email/reset_password.html:10
+msgid "If you have not requested a password reset simply ignore this message."
+msgstr ""
+"Si no has solicitado un reinicio de contraseña puedes simplemente ignorar"
+" este mensaje."
+
+#: app/templates/email/reset_password.html:11
+msgid "Sincerely,"
+msgstr "Atentamente,"
+
+#: app/templates/email/reset_password.html:12
+msgid "The Battlestation Team"
+msgstr "El equipo de BattleStation"
+
+#: app/templates/errors/404.html:4
+msgid "File Not Found"
+msgstr "Archivo no encontrado"
+
+#: app/templates/errors/500.html:4
+msgid "An unexpected error has occurred"
+msgstr "Ha ocurrido un error inesperado"
+
+#: app/templates/errors/500.html:5
+msgid "The administrator has been notified. Sorry for the inconvenience!"
+msgstr "El administrador ha sido notificado, perdón por el inconveniente"
+
+#: app/templates/errors/500.html:6
+msgid "Back"
+msgstr "Atrás"
+
+#~ msgid "Last seen on"
+#~ msgstr "Visto por última vez"
+
+#~ msgid "%(count)d followers"
+#~ msgstr "%(count)d seguidores"
+
+#~ msgid "%(count)d following"
+#~ msgstr "%(count)d siguiendo"
+
+#~ msgid "Follow"
+#~ msgstr "Seguir"
+
+#~ msgid "Unfollow"
+#~ msgstr "Dejar de seguir"
+
+#~ msgid "Console"
+#~ msgstr "Consola"
+
+#~ msgid "1 minute"
+#~ msgstr "1 minuto"
+
+#~ msgid "Minimum amount of participants: "
+#~ msgstr "Mínima cantidad de participantes: "
+
+#~ msgid " You have been banned"
+#~ msgstr " Se te ha prohibido participar"
+
+#~ msgid "Round "
+#~ msgstr "Ronda "
+
+#~ msgid "Newer tournaments"
+#~ msgstr "Torneos más nuevos"
+
+#~ msgid "Older tournaments"
+#~ msgstr "Torneos más antiguos"
+
+#~ msgid "Newer posts"
+#~ msgstr "Nuevas publicaciones"
+
+#~ msgid "Older posts"
+#~ msgstr "Publicaciones antiguas"
+
+#~ msgid "Next page"
+#~ msgstr "Siguiente página"
+
+#~ msgid "Previous page"
+#~ msgstr "Página anterior"
+
+#~ msgid "Hi, %(username)s!"
+#~ msgstr "Hola, %(username)s!"
+
+#~ msgid "Import"
+#~ msgstr "Importar"
+
+#~ msgid "Ends in: "
+#~ msgstr "Termina en: "
+

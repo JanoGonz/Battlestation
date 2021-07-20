@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+<div class="container rounded bg-white mt-5">
+<div class="t-header col-12">
+    <div class="col-lg-4 col-md-12 border-right t-info">
+    <p>
+      <h2>{{ t.name }}</h2>
+      <h3>{{ t.game }}</h3>
+    </p>
+    <p>
+      {% if organizer.name %}
+      {{ _('Created by: ') }}<i class="fa fa-building" aria-hidden="true"></i> <a href="{{ url_for('auth.organization', org=organizer.name) }}">{{ organizer.name }}</a><br>
+      {% else %}
+      {{ _('Created by: ') }}<i class="fa fa-user" aria-hidden="true"></i> <a href="{{ url_for('auth.user', username=created_by.username) }}">{{ created_by.username }}</a><br>
+      {% endif %}
+      {% if organizes %}
+      <a href="{{ url_for('auth.console', tourney = t.id) }}"><button type="button" class="btn btn-danger">
+        <i class="fa fa-tasks" aria-hidden="true"></i> {{ _('Console') }}
+      </button></a>
+      {% if not started %}
+      <a href="{{ url_for('auth.edit_tournament', t=t.id) }}"><button type="button" class="btn btn-danger"><i
+            class="fas fa-edit"></i></button></a>
+      {% endif %}
+      {% endif %}
+    </p>
+    <p>
+      {{ _('Starts at: ') }}{{ moment(t.starts_at).format('D MMMM YYYY, H:mm a') }}<br>
+      {{ _('Number of rounds: ') }}{{ t.max_rounds }}<br>
+      {{ _('Time between rounds: ') }}
+      {% if t.between_rounds == 0 %}{{ _('1 hour')}}
+      {% elif t.between_rounds == 1 %}{{ _('1 week') }}
+      {% elif t.between_rounds == 2 %}{{ _('1 minute') }}
+      {% endif %}
+      {% if t.min_participants > 0 %}
+      {{ _('Minimum amount of participants: ') }}{{ t.min_participants }}
+      {% endif %}
+      {% if t.type== 0 %}
+      <br>{{ _('Tournament type: ') }}{{ _('Swiss') }}
+      {% elif t.type==1 %}
+      <br>{{ _('Tournament type: ') }}{{ _('League') }}
+      {% elif t.type==2 %}
+      <br>{{ _('Tournament type: ') }}{{ _('Single elimination') }}
+      {% elif t.type==3 %}
+      <br>{{ _('Tournament type: ') }}{{ _('Double elimination') }}
+      {% endif %}
+      {% if not started %}
+      
+    {% if not joined %}
+      <br><a href="{{ url_for('main.join', tournament=t.id) }}"><button class="btn btn-danger">{{_('Join tournament')}}</button></a>
+    {% else %}
+    {% if banned %}
+    <br>
+    <button type="button" class="btn btn-danger" disabled><i class="fa fa-ban" aria-hidden="true"></i>{{ _(' You have been banned') }}</button>
+    {% else %}
+    <br><a href="{{ url_for('main.leave', tournament=t.id) }}"><button class="btn btn-danger">{{_('Leave tournament')}}</button></a>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    </p>
+
+  </div>
+  <div class="col-lg-8 col-md-12 border-right t-logo ">
+    {% if details and details.img_url != '' %}
+    <img class="avatar-tournament" src="{{ details.avatar(256) }}">
+    {% else %}
+    <i class="fas fa-trophy fa-10x ph-i"></i>
+    {% endif %}
+  </div>
+  </div>
+</div>
+<ul class="nav nav-pills" id="pills-tab" role="tablist">
+  <li class="nav-item active">
+    <a class="nav-link" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab"
+      aria-controls="pills-description">{{ _('Description') }}</a>
+  </li>
+  {% if details.rules %}
+  <li class="nav-item">
+    <a class="nav-link" id="pills-rules-tab" data-toggle="pill" href="#pills-rules" role="tab"
+      aria-controls="pills-rules">{{ _('Rules') }}</a>
+  </li>
+  {% endif %}
+  {% if details.schedule %}
+  <li class="nav-item">
+    <a class="nav-link" id="pills-schedule-tab" data-toggle="pill" href="#pills-schedule" role="tab"
+      aria-controls="pills-schedule">{{ _('Schedule') }}</a>
+  </li>
+  {% endif %}
+  {% if details.prizes %}
+  <li class="nav-item">
+    <a class="nav-link" id="pills-prizes-tab" data-toggle="pill" href="#pills-prizes" role="tab"
+      aria-controls="pills-prizes">{{ _('Prizes') }}</a>
+  </li>
+  {% endif %}
+  {% if details.contact %}
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+      aria-controls="pills-contact">{{ _('Contact') }}</a>
+  </li>
+  {% endif %}
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade in active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+    {{ details.description | safe }}</div>
+  {% if details.rules %}
+  <div class="tab-pane fade" id="pills-rules" role="tabpanel" aria-labelledby="pills-rules-tab">
+    {{ details.rules | safe }}</div>
+  {% endif %}
+  {% if details.schedule %}
+  <div class="tab-pane fade" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+    {{ details.schedule | safe }}</div>
+  {% endif %}
+  {% if details.prizes %}
+  <div class="tab-pane fade" id="pills-prizes" role="tabpanel" aria-labelledby="pills-prizes-tab">
+    {{ details.prizes | safe }}</div>
+  {% endif %}
+  {% if details.contact %}
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+    {{ details.contact | safe }}</div>
+  {% endif %}
+</div>
+<h2>{{ _('Participants') }}</h2>
+{% if memberships %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">
+        {{ _('Name') }}
+      </th>
+      <th scope="col">
+        {{ _('Position') }}
+      </th>
+      <th scope="col">
+        {{ _('Record') }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in memberships %}
+    <tr>
+      <td>
+        <a href="{{url_for('auth.user', username=m.name)}}"><span class="fas fa-user"></span> {{ m.name }}</a>
+      </td>
+      <td>
+        {% if started and t.active_round > 0 %}
+          {% if loop.index==1 %}
+          {{ loop.index }}st
+          {% elif loop.index==2 %}
+          {{ loop.index }}nd
+          {% else %}
+          {{ loop.index }}rd
+          {% endif %}
+        {% else %}
+        -
+        {% endif %}
+      </td>
+      <td>
+        {% if m.wins > 0 or m.loses > 0 or m.ties > 0 %}
+        {{ m.wins }} - {{ m.loses }} {% if m.ties %} - {{ m.ties }} {% endif %}
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if started %}
+<h2>{{ _('Pairings') }}</h2>
+<hr>
+
+<ul class="nav nav-pills" id="pills-tab-rounds" role="tablist">
+  {% for p in pairings %}
+  {% if pairings.index(p) == 0 %}
+  <li class="nav-item active">
+  {% else %}
+  <li class="nav-item">
+  {% endif %}
+  <a class="nav-link" id="round-{{ pairings.index(p) }}-tab" data-toggle="pill" href="#round-{{ pairings.index(p) }}"
+    role="tab" aria-controls="round-{{ pairings.index(p) }}">{{ _('Round ') }}{{ pairings.index(p)+1 }}</a>
+</li>
+  {% endfor %}
+</ul>
+  <div class="tab-content" id="pills-tabContent-rounds">
+    {% for p_pairs in pairings %}
+    {% if pairings.index(p_pairs)== 0 %}
+    <div class="tab-pane fade in active" id="round-{{ pairings.index(p_pairs) }}" role="tabpanel"
+      aria-labelledby="round-{{ pairings.index(p_pairs) }}-tab">
+      {% else %}
+      <div class="tab-pane fade in" id="round-{{ pairings.index(p_pairs) }}" role="tabpanel"
+        aria-labelledby="round-{{ pairings.index(p_pairs) }}-tab">
+      {% endif %}
+      <table class="table table-hover">
+        <thead>
+          <th scope="col">
+            {{ _('Player 1') }}
+          </th>
+          <th scope="col">
+            {{ _('Player 2') }}
+          </th>
+          <th scope="col">
+            {{ _('Result') }}
+          </th>
+        </thead>
+        <tbody>
+        {% for p in p_pairs %}
+        <tr>
+          <td>
+            {{ p.username_1 }}
+          </td>
+          <td>
+            {% if p.user_2 == 0 %}
+            -
+            {% else %}
+            {{ p.username_2 }}
+            {% endif %}
+          </td>
+          <td>
+            {% if p.ready_1 and p.ready_2 %}
+            {{ p.result_1 }} - {{ p.result_2 }}
+            {% elif p.user_2 == 0 %}
+            {{ _('The player was awarded a bye') }}
+            {% else %}
+            {{ _('Result not submitted yet') }}
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+      </table>
+      </div>
+      
+  
+  {% endfor %}
+</div>
+</div>
+</div>
+{% endif %}
+{% endblock %}

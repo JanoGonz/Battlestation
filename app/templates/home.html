@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block app_content %}
+    <div class="justify-content-center">
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="square-service-block">
+                <a href="{{ url_for('main.activity') }}">
+                <div class="icon-home">
+                    <i class="fas fa-chart-bar"></i>
+                    <h2 class="ssb-title">{{ _('Activity') }}</h2>
+                </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="square-service-block">
+                <a href="{{ url_for('main.tournament_list') }}">
+                    <div class="icon-home">
+                        <i class="fas fa-search"></i>
+                        <h2 class="ssb-title">{{ _('Explore') }}</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="square-service-block">
+                <a href="{{ url_for('main.notification_list')}}">
+                    <div class="icon-home">
+                        <i class="fas fa-exclamation"></i>
+                        <h2 class="ssb-title">{{ _('Notifications') }}</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="square-service-block">
+                <a href="{{ url_for('main.my_tournaments')}}">
+                    <div class="icon-home">
+                        <i class="fas fa-trophy"></i>
+                        <h2 class="ssb-title">{{ _('My tournaments') }}</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="square-service-block">
+                <a href="{{ url_for('auth.new_tournament') }}">
+                    <div class="icon-home">
+                        <i class="fas fa-plus"></i>
+                        <h2 class="ssb-title">{{ _('Create') }}</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="square-service-block">
+                <a href="{{ url_for('main.organizations')}}">
+                    <div class="icon-home">
+                        <i class="fas fa-users"></i>
+                        <h2 class="ssb-title">{{ _('Organizers') }}</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

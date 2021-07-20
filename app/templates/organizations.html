@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+{% if my_org %}
+<div class="container">
+    <h1>{{ _('My Organizations') }}</h1>
+    <hr>
+    {% for my_o in my_org %}
+        <div class="col-md-12 link-card">
+ <a href="{{ url_for('auth.organization', org=my_o.name) }}">
+            <div class="card-org">
+                <div class="card-org-pic">
+                    <img class="avatar" src="{{ my_o.avatar(128) }}">
+                </div>
+                <div class="card-org-info">
+                    <h2>
+                        {{ my_o.name }}
+                    </h2>
+                        {% if my_o.website %}
+                        <p><i class="fas fa-link" aria-hidden="true"></i>&nbsp;{{ my_o.website }}</p>
+                        {% endif %}
+                        {% if my_o.contact %}
+                        <p><i class="fas fa-envelope" aria-hidden="true"></i>&nbsp;{{ my_o.contact }}</p>
+                        {% endif %}
+                </div>
+            </div>
+</a>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+<h1 id="other-org">{{ _('Organizations') }}</h1><hr>
+{% for o in organizations %}
+<div class="col-md-12 link-card">
+    <a href="{{ url_for('auth.organization', org=o.name) }}">
+	<div class="card-org">
+	<div class="card-org-pic">
+            <img class="avatar" src="{{ o.avatar(128) }}">
+	</div>
+	<div class="card-org-info">
+            <h2>
+                {{ o.name }}
+            </h2>
+                {% if o.website %}
+            <p><i class="fas fa-link" aria-hidden="true"></i> {{ o.website }}</p>
+                {% endif %}
+                {% if o.contact %}
+            <p><i class="fas fa-envelope" aria-hidden="true"></i> {{ o.contact }}</p>
+                {% endif %}
+	</div>
+	</div>
+    </a>
+</div>
+
+{% endfor %}
+</div>
+
+<nav aria-label="...">
+
+    <ul class="pager">
+        <li class="previous{% if not prev_url %} disabled{% endif %}">
+            <a href="{{ prev_url or '#' }}#other-org">
+                <span aria-hidden="true">&larr;</span>{{ _('Go back') }}
+            </a>
+        </li>
+        <li class="next{% if not next_url %} disabled{% endif %}">
+            <a href="{{ next_url or '#' }}#other-org">
+                {{ _('Next') }}<span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>    
+    </nav>
+{% endblock %}

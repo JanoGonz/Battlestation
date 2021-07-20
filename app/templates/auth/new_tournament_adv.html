@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{{ super() }}
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block app_content %}
+<div class="form-adv-2">
+    <div class="col-md-12">
+    <h1>{{ _('New tournament - Advanced') }}</h1>
+    <hr>
+    
+    <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token() }}
+        {{ form.name.label() }}
+        {{ form.name() }}
+        <br>
+        {{ form.game.label() }}
+        {{ form.game() }}
+        <br>
+        {{ form.starts_at.label() }}
+        {{ form.starts_at() }}
+        {% for error in form.starts_at.errors %}
+        <br><span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <br>
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item active">
+              <a class="nav-link" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab"
+                aria-controls="pills-description">{{ _('Description') }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-rules-tab" data-toggle="pill" href="#pills-rules" role="tab"
+                aria-controls="pills-rules">{{ _('Rules') }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-schedule-tab" data-toggle="pill" href="#pills-schedule" role="tab"
+                aria-controls="pills-schedule">{{ _('Schedule') }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-prizes-tab" data-toggle="pill" href="#pills-prizes" role="tab"
+                aria-controls="pills-prizes">{{ _('Prizes') }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+                aria-controls="pills-contact">{{ _('Contact') }}</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade in active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+        {{ form.description() }}
+            </div>
+            <div class="tab-pane fade" id="pills-rules" role="tabpanel" aria-labelledby="pills-rules-tab">
+                {{ form.rules() }}
+            </div>
+            <div class="tab-pane fade" id="pills-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+                {{ form.schedule() }}
+            </div>
+            <div class="tab-pane fade" id="pills-prizes" role="tabpanel" aria-labelledby="pills-prizes-tab">
+                {{ form.prizes() }}
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                {{ form.contact() }}
+            </div>
+          </div>
+          <br>
+        {{ form.organizer.label() }}
+        {{ form.organizer()}}
+        <br>
+        {{ form.type.label() }}
+        {{ form.type() }}
+        <br>
+        {{ form.time_between_rounds.label() }}
+        {{ form.time_between_rounds() }}
+        <br>
+        {{ form.number_of_rounds.label() }}
+        {{ form.number_of_rounds() }}
+        <br>
+        {{ form.picture.label() }}
+        {{ form.picture() }}
+        <br>
+        {{ form.visible() }}
+        {{ form.visible.label() }}
+        <br>
+        {{ form.submit() }}
+        </div>
+        </div>
+    </form>
+    </div>
+    
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#description').summernote();
+        $('#rules').summernote();
+        $('#schedule').summernote();
+        $('#prizes').summernote();
+        $('#contact').summernote();
+    });
+</script>
+{% endblock %}

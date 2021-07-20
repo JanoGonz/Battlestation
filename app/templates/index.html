@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>{{ _('Welcome to BattleStation') }}</h1>
+    <h2>{{ _('Hi, %(username)s!', username = current_user.username) }}</h2>
+    <hr>
+    <p>
+        {{ _('We are a site focused in event organization for every kind of games.')}}
+        {{ _('You can use the tools we provide to make communities and assist you organizing events.')}}
+        {{ _('You can also') }} <a href="{{ url_for('main.licenses')}}">{{ _('check the license and contact information!')}}</a>
+    </p>
+{% endblock %}

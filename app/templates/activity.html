@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block app_content %}
+{% if active_t %}
+<h1>{{ _('Active tournaments') }}</h1>
+
+    {% for t in active_t %}
+    <div class="activity">
+        <form action="" method="post" novalidate>
+            {{ form.csrf_token() }}
+            {{ form.pairing_id(value=t.pairing_id)}}
+            <table>
+                <tr>
+                    <td colspan=2>
+                        <h1><a href="{{ url_for('main.tournament_details', tourney=t.id)}}">{{ t.name }}</a></h1>
+                        <p>{{ _('Active round:') }} {{ t.round }}</p>
+                        {% if scheduler.get_job('schedule_tournament_' ~ t.id ~ '_round_' ~ (t.round+1)).next_run_time %}
+                        <p>{{ _('Ends') }} {{ moment(scheduler.get_job('schedule_tournament_' ~ t.id ~ '_round_' ~ (t.round+1)).next_run_time).fromNow(refresh=True) }}</p>
+                        {% elif scheduler.get_job('end_tournament' ~ t.id).next_run_time %}
+                        <p>{{ _('Ends') }} {{ moment(scheduler.get_job('end_tournament' ~ t.id).next_run_time).fromNow(refresh=True) }}</p>
+                        {% endif %}
+
+                    </td>
+                </tr>
+                {% if t.user_2 == 0 or t.user_1 == 0 %}
+                    <tr><td><i>{{ _('You have been awarded a bye') }}</i></td></tr>
+                {% else %}
+                    {% if current_user.id==t.user_1 %}
+                        <tr>
+                            <td colspan=2>
+                                <a href="{{ url_for('auth.user', username=t.user_1_name) }}"><i class="fa fa-user" aria-hidden="true"></i> {{ t.user_1_name }}</a> vs 
+                                <a href="{{ url_for('auth.user', username=t.user_2_name) }}"><i class="fa fa-user" aria-hidden="true"></i> {{ t.user_2_name }}</a>
+                            </td>
+                        </tr>
+                        
+                        {% if t.ready_1==1 %}
+                        <tr>
+                            <td colspan=2>
+                                <i>{{ _('Result submitted') }}</i>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td class="col-md-6">
+                                {{ _('Result') }} <i class="fa fa-user" aria-hidden="true"></i> {{ t.user_1_name }} 
+                                {{ form.result_1 (class="form-control col-md-3") }}
+                            </td>
+                            <td class="col-md-6">
+                                Resultado <i class="fa fa-user" aria-hidden="true"></i> {{ t.user_2_name }} <a href="{{ url_for('main.send_message', recipient=t.user_2_name) }}"><i class="fas fa-comment-alt "></i></a>
+                                {{ form.result_2 (class="form-control col-md-3") }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% for error in form.result_1.errors %}
+                                <span style="color: red;">{{ error }}</span><br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for error in form.result_2.errors %}
+                                <span style="color: red;">{{ error }}</span><br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan=2>{{ form.submit }}</td>
+                        </tr>
+                        {% endif %}
+                    {% else %}
+                        <tr>
+                            <td colspan=2>
+                                <a href="{{ url_for('auth.user', username=t.user_2_name) }}"><i class="fa fa-user" aria-hidden="true"></i> {{ t.user_2_name }}</a> vs 
+                                <a href="{{ url_for('auth.user', username=t.user_1_name) }}"><i class="fa fa-user" aria-hidden="true"></i> {{ t.user_1_name }}</a>
+                            </td>
+                        </tr>
+                            {% if t.ready_2==1 %}
+                            <tr>
+                                <td colspan=2>
+                                    <i>{{ _('Result submitted') }}</i>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td class="col-md-6">
+                                    {{ _('Result') }} <i class="fa fa-user" aria-hidden="true"></i> {{ t.user_2_name }}
+                                    {{ form.result_2 (class="form-control mb-3") }}
+                                </td>
+                                <td class="col-md-6">
+                                    {{ _('Result') }} <i class="fa fa-user" aria-hidden="true"></i> {{ t.user_1_name }}  <a href="{{ url_for('main.send_message', recipient=t.user_1_name) }}"><i class="fas fa-comment-alt "></i></a>
+                                    {{ form.result_1 (class="form-control mb-3") }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {% for error in form.result_2.errors %}
+                                    <span style="color: red;">[{{ error }}]</span><br>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for error in form.result_2.errors %}
+                                    <span style="color: red;">[{{ error }}]</span><br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan=2>{{ form.submit }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+            </table>
+        </form>
+    </div>
+    {% endfor %}
+
+{% else %}
+<h1>{{ _('You have no active tournaments')}}</h1>
+<i>{{ _('Nothing to see here, ') }}</i> <a href="{{ url_for('main.tournament_list') }}">{{ _('Feel free to join upcoming tournaments!') }}</a>
+{% endif %}
+{% endblock %}
